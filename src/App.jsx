@@ -4,6 +4,7 @@ import { Routes, Route, Link } from "react-router-dom";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Stats from "./pages/Stats";
+import Login from "./pages/Login";
 
 export default function App() {
   const [habits, setHabits] = useState([
@@ -38,9 +39,10 @@ export default function App() {
         <p className="text-green-700 mb-6 max-w-xl mx-auto">
           Stay motivated and track your eco-friendly activities every day. Small actions lead to big impact!
         </p>
-        <Link to="/home" className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition">Home</Link>
-        <Link to="/profile" className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition">Profile</Link>
-        <Link to="/stats" className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition">Stats</Link>
+        <Link to="/home" className="bg-green-600 text-black px-6 py-2 rounded hover:bg-green-700 transition ml-4">Home</Link>
+        <Link to="/profile" className="bg-green-600 text-black px-6 py-2 rounded hover:bg-green-700 transition ml-4">Profile</Link>
+        <Link to="/stats" className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition ml-4">Stats</Link>
+        <Link to="/login" className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition ml-4">Login</Link>
       </section>
 
       {/* Habits List */}
@@ -73,6 +75,7 @@ export default function App() {
           <Route path="/" element={<Home habits={habits} toggleHabit={toggleHabit} />} />
           <Route path="/profile" element={<Profile habits={habits} />} />
           <Route path="/stats" element={<Stats habits={habits} />} />
+          <Route path="/login" element={<Login  />} />
         </Routes>
       </main>
     </div>
