@@ -13,7 +13,7 @@ const Login = () => {
         </div>
 
         {/* Tab controls */}
-        <div className='relative flex h-12 mb-6 border border-green-400 rounded-full overflow-hidden'>
+        <div className='relative flex h-12 mb-6 border border-blue-400 rounded-full overflow-hidden'>
             <button onClick={() => setIsLogingMode(true)} className={`w-1/2 text-lg font-medium transition-all z-10 ${isLogingMode ? 'text-green-950 !bg-green-400' : 'text-green-600 !bg-transparent'}`}>
                 Login
             </button>
