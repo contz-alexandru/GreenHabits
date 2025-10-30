@@ -46,7 +46,7 @@ const Login = () => {
                 )}
 
                  {/* Submit button */} 
-                 <button className='w-full p-3 bg-gradient-to-r from-green-400 via-lime-300 to-green-400'>
+                 <button className='w-full p-3 text-gray-500 font-medium  rounded-full hover:opacity-90 transition mb-4'>
                     {isLogingMode ? 'Login' : 'Sign Up'}
                 </button>
 
