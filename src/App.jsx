@@ -21,7 +21,6 @@ export default function App() {
     );
   };
 
-  
 
   return (
     <div className="min-h-screen bg-green-50 font-sans">
@@ -43,31 +42,6 @@ export default function App() {
         <Link to="/profile" className="bg-green-600 text-black px-6 py-2 rounded hover:bg-green-700 transition ml-4">Profile</Link>
         <Link to="/stats" className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition ml-4">Stats</Link>
         <Link to="/login" className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition ml-4">Login</Link>
-      </section>
-
-      {/* Habits List */}
-      <section className="max-w-2xl mx-auto p-4">
-        <h3 className="text-xl font-semibold mb-4">Your Habits</h3>
-        <ul className="space-y-2">
-          {habits.map((habit) => (
-            <li
-              key={habit.id}
-              className={`flex items-center justify-between p-3 border rounded shadow-sm ${
-                habit.done ? "bg-green-100 line-through text-green-600" : "bg-white"
-              }`}
-            >
-              <span>{habit.name}</span>
-              <button
-                onClick={() => toggleHabit(habit.id)}
-                className={`px-3 py-1 rounded ${
-                  habit.done ? "bg-green-500 text-white" : "bg-gray-200 text-gray-800"
-                }`}
-              >
-                {habit.done ? "Done" : "Mark Done"}
-              </button>
-            </li>
-          ))}
-        </ul>
       </section>
       {/* Routes */}
       <main className="p-6 max-w-3xl mx-auto">

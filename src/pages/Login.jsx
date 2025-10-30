@@ -13,11 +13,11 @@ const Login = () => {
         </div>
 
         {/* Tab controls */}
-        <div className='relative flex h-12 mb-6 border border-darkgreen rounded-full overflow-hidden'>
-            <button onClick={() => setIsLogingMode(true)} className={`w-1/2 text-lg font-medium transition-all z-10 ${isLogingMode ? 'text-darkgreen !bg-lightgreen' : 'text-green-600 !bg-transparent'}`}>
+        <div className='relative flex h-12 mb-6 border-1 border-gray-800 rounded-full overflow-hidden'>
+            <button onClick={() => setIsLogingMode(true)} className={`w-1/2 text-lg font-medium transition-all z-10 ${isLogingMode ? 'text-darkgreen !bg-lightgreen' : 'text-lightgreen !bg-transparent'}`}>
                 Login
             </button>
-            <button onClick={() => setIsLogingMode(false)}className={`w-1/2 text-lg font-medium transition-all z-10 ${!isLogingMode ? 'text-darkgreen !bg-lightgreen' : 'text-green-600 !bg-transparent'}`}>
+            <button onClick={() => setIsLogingMode(false)}className={`w-1/2 text-lg font-medium transition-all z-10 ${!isLogingMode ? 'text-darkgreen !bg-lightgreen' : 'text-lightgreen !bg-transparent'}`}>
                 Sign Up
             </button>
             <div className={`absolute top-0 h-full w-1/2 rounded-full bg-gradient-to-r from-green-400 via-lime-300 to-green-400 ${isLogingMode ? 'left-0' : 'left-1/2'}`}></div>
@@ -46,7 +46,7 @@ const Login = () => {
                 )}
 
                  {/* Submit button */} 
-                 <button className='w-full p-3 text-gray-500 font-medium  rounded-full hover:opacity-90 transition mb-4'>
+                 <button className='w-full p-3 text-darkgreen font-medium bg-lightgreen rounded-full hover:opacity-90 transition mb-4'>
                     {isLogingMode ? 'Login' : 'Sign Up'}
                 </button>
 
