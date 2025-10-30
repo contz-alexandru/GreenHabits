@@ -1,4 +1,18 @@
 @import "tailwindcss";
+
+@theme {
+  --color-forest: #255938;
+  --color-darkgreen: #255938;
+  --color-sage: #869773;
+  --color-lightgreen: #869773;
+  --color-coral: #dc9b7d;
+  --color-salmon: #dc9b7d;
+  --color-somon: #dc9b7d;
+  --color-cream: #e9dcc3;
+  --color-beige: #e9dcc3;
+  --color-bej: #e9dcc3;
+  --color-mint: #c5d9d0;
+}
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

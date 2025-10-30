@@ -4,7 +4,7 @@ const Login = () => {
     
     const[isLogingMode, setIsLogingMode] = useState(false  );
   return (
-    <div className='w-[430px] bg-white p-8 rounded-2x1 shadow-1g mx-auto mt-20'>
+    <div className='w-[430px] bg-mint p-8 rounded-2x1 shadow-1g mx-auto mt-20'>
         {/* Header */}
         <div className='flex justify-center mb-4'>
             <h2 className='text-3x1 font-semibold text-center'>
@@ -13,11 +13,11 @@ const Login = () => {
         </div>
 
         {/* Tab controls */}
-        <div className='relative flex h-12 mb-6 border border-blue-400 rounded-full overflow-hidden'>
-            <button onClick={() => setIsLogingMode(true)} className={`w-1/2 text-lg font-medium transition-all z-10 ${isLogingMode ? 'text-green-950 !bg-green-400' : 'text-green-600 !bg-transparent'}`}>
+        <div className='relative flex h-12 mb-6 border border-darkgreen rounded-full overflow-hidden'>
+            <button onClick={() => setIsLogingMode(true)} className={`w-1/2 text-lg font-medium transition-all z-10 ${isLogingMode ? 'text-darkgreen !bg-lightgreen' : 'text-green-600 !bg-transparent'}`}>
                 Login
             </button>
-            <button onClick={() => setIsLogingMode(false)}className={`w-1/2 text-lg font-medium transition-all z-10 ${!isLogingMode ? 'text-green-950 !bg-green-400' : 'text-green-600 !bg-transparent'}`}>
+            <button onClick={() => setIsLogingMode(false)}className={`w-1/2 text-lg font-medium transition-all z-10 ${!isLogingMode ? 'text-darkgreen !bg-lightgreen' : 'text-green-600 !bg-transparent'}`}>
                 Sign Up
             </button>
             <div className={`absolute top-0 h-full w-1/2 rounded-full bg-gradient-to-r from-green-400 via-lime-300 to-green-400 ${isLogingMode ? 'left-0' : 'left-1/2'}`}></div>
