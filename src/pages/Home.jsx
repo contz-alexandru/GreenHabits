@@ -19,14 +19,14 @@ export default function Home() {
           <li
             key={habit.id}
             className={`flex justify-between items-center p-3 rounded shadow-sm ${
-              habit.done ? "bg-green-100 line-through text-green-600" : "bg-white"
+              habit.done ? "bg-darkgreen-100 line-through text-green-600" : "bg-white"
             }`}
           >
             {habit.name}
             <button
               onClick={() => toggleHabit(habit.id)}
               className={`px-3 py-1 rounded ${
-                habit.done ? "bg-green-500 text-white" : "bg-gray-200 text-gray-800"
+                habit.done ? "bg-lightgreen-500 text-white" : "bg-gray-200 text-gray-800"
               }`}
             >
               {habit.done ? "Done" : "Mark Done"}
