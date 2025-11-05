@@ -4,6 +4,7 @@ import { Routes, Route, Link } from "react-router-dom";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Stats from "./pages/Stats";
+import Login from "./pages/Login";
 
 export default function App() {
   const [habits, setHabits] = useState([
@@ -24,6 +25,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-green-50 font-sans">
+      <Login />
       {/* Header */}
       <header className="bg-green-600 text-white p-6 shadow-md">
         <h1 className="text-3xl font-bold">GreenHabits 🌱</h1>
