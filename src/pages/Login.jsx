@@ -1,82 +1,82 @@
-import React from 'react'
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { 
+  loginWithEmailAndPassword,
+  registerWithEmailAndPassword,
+  registerWithGoogle
+} from "../pages/LoginData"; // <- importă funcțiile Firebase
 
 const Login = ({ setIsLoggedIn }) => {
-    const navigate = useNavigate();
-    const [isLoginMode, setIsLoginMode] = useState(false);
-    
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        setIsLoggedIn(true);
-        navigate('/profile');
-    };
-    
+  const navigate = useNavigate();
+  const [isLoginMode, setIsLoginMode] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    if (isLoginMode) {
+      await loginWithEmailAndPassword(email, password);
+    } else {
+      await registerWithEmailAndPassword(email, password);
+    }
+
+    setIsLoggedIn(true);
+    navigate('/profile');
+  } catch (error) {
+    console.error("Firebase Auth Error:", error.message);
+  }
+};
+
+
+  const handleGoogleLogin = async () => {
+  try {
+    await registerWithGoogle();
+    setIsLoggedIn(true);
+    navigate("/profile");
+  } catch (err) {
+    console.error("Eroare Google Login:", err);
+    setError("Eroare Google login");
+  }
+};
+
   return (
-    <div className='w-[430px] bg-mint p-8 rounded-2xl shadow-lg mx-auto mt-4'>
-        {/* Header */}
-        <div className='flex justify-center mb-4'>
-            <h2 className='text-3xl font-semibold text-center text-darkgreen'>
-                {isLoginMode ? 'Welcome Back!' : 'Create an Account'}
-            </h2>
-        </div>
+    <div className="w-[430px] bg-mint p-8 rounded-2xl shadow-lg mx-auto mt-4">
+      <h2 className="text-3xl font-semibold text-center text-darkgreen mb-6">
+        {isLoginMode ? "Welcome Back!" : "Create an Account"}
+      </h2>
 
-        {/* Tab controls */}
-        <div className='relative flex h-12 mb-6 border-2 border-darkgreen rounded-full overflow-hidden'>
-            <button 
-                type="button"
-                onClick={() => setIsLoginMode(true)} 
-                className={`w-1/2 text-lg font-medium transition-all z-10 ${isLoginMode ? 'text-white bg-darkgreen' : 'text-darkgreen bg-lightgreen'}`}>
-                Login
-            </button>
-            <button 
-                type="button"
-                onClick={() => setIsLoginMode(false)}
-                className={`w-1/2 text-lg font-medium transition-all z-10 ${!isLoginMode ? 'text-white bg-darkgreen' : 'text-darkgreen bg-lightgreen'}`}>
-                Sign Up
-            </button>
-            <div className={`absolute top-0 h-full w-1/2 rounded-full bg-darkgreen transition-all ${isLoginMode ? 'left-0' : 'left-1/2'}`}></div>
-        </div>
-        
-        {/* Form */}
-        <div>
-            <form onSubmit={handleSubmit}>
-                {!isLoginMode && (
-                    <input type="text" placeholder="Username" required className='w-full p-3 mb-3 rounded-lg border-2 border-darkgreen outline-none focus:border-darkgreen placeholder-darkgreen bg-lightgreen text-darkgreen'/>
-                )}
+      <form onSubmit={handleSubmit}>
+        {!isLoginMode && (
+          <input type="text" placeholder="Username" className="..." />
+        )}
+        <input type="email" placeholder="Email" value={email} onChange={(e)=>setEmail(e.target.value)} className="..." />
+        <input type="password" placeholder="Password" value={password} onChange={(e)=>setPassword(e.target.value)} className="..." />
+        {!isLoginMode && (
+          <input type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e)=>setConfirmPassword(e.target.value)} className="..." />
+        )}
 
-                {/* Shared */}
-                <input type="email" placeholder="Email Address" required className='w-full p-3 mb-3 rounded-lg border-2 border-darkgreen outline-none focus:border-darkgreen placeholder-darkgreen bg-lightgreen text-darkgreen'/>
-                <input type="password" placeholder="Password" required className='w-full p-3 mb-3 rounded-lg border-2 border-darkgreen outline-none focus:border-darkgreen placeholder-darkgreen bg-lightgreen text-darkgreen'/>
+        {error && <p className="text-red-600 text-center mb-2">{error}</p>}
 
-                {/* Signup mode only */}
-                {!isLoginMode && (
-                    <input type="password" placeholder="Confirm Password" required className='w-full p-3 mb-3 rounded-lg border-2 border-darkgreen outline-none focus:border-darkgreen placeholder-darkgreen bg-lightgreen text-darkgreen'/>
-                )}
+        <button type="submit" className="...">
+          {isLoginMode ? "Login" : "Sign Up"}
+        </button>
+      </form>
 
-                {/* Forgot password - login mode only */}
-                {isLoginMode && (
-                    <div className='text-right mt-2 mb-4'>
-                       <p className='text-darkgreen hover:underline rounded-full text-sm font-medium hover:opacity-90 transition cursor-pointer'>Forgot password?</p>
-                    </div>
-                )}
+      <button onClick={handleGoogleLogin} className="w-full bg-white border mt-2 py-2 rounded-md">
+        Continue with Google
+      </button>
 
-                 {/* Submit button */} 
-                 <button type="submit" className='w-full p-3 text-darkgreen font-medium bg-lightgreen rounded-full hover:opacity-90 transition mb-4 border-2 border-darkgreen'>
-                    {isLoginMode ? 'Login' : 'Sign Up'}
-                </button>
-
-                {/* Switch mode link */}
-                <p className='text-center text-darkgreen'> 
-                    {isLoginMode ? "Don't have an account?" : "Already have an account?"}
-                    <a href="#" onClick={(e) => { e.preventDefault(); setIsLoginMode(!isLoginMode); }} className='text-darkgreen hover:underline rounded-full ml-2 font-medium hover:opacity-90 transition'>
-                        {isLoginMode ? 'Sign Up' : 'Login'}
-                    </a>    
-                </p>
-            </form>
-        </div>
+      <p className="text-center mt-4">
+        {isLoginMode ? "Don't have an account?" : "Already have an account?"}
+        <a href="#" onClick={(e) => { e.preventDefault(); setIsLoginMode(!isLoginMode); }} className="text-darkgreen font-semibold ml-1">
+          {isLoginMode ? "Sign Up" : "Login"}
+        </a>
+      </p>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
