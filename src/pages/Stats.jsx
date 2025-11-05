@@ -37,23 +37,23 @@ export default function Stats() {
   });
 
   return (
-    <main className="p-6 max-w-5xl mx-auto space-y-8 bg-beige min-h-screen">
-      <h2 className="text-4xl font-extrabold mb-6 text-darkgreen text-center">
+    <main className="p-6 max-w-5xl mx-auto space-y-8 bg-[#f5e6d3] min-h-screen">
+      <h2 className="text-4xl font-extrabold mb-6 text-[#2d5016] text-center">
         Eco Statistics 🌿
       </h2>
 
       {/* Eco Habits */}
-      <section className="bg-mint rounded-2xl shadow-md p-6 border border-lightgreen">
-        <h3 className="text-2xl font-bold mb-4 text-darkgreen text-center">
+      <section className="bg-[#b8cec1] rounded-2xl shadow-md p-6 border border-[#b8cec1]">
+        <h3 className="text-2xl font-bold mb-4 text-[#2d5016] text-center">
           Popular Eco Habits
         </h3>
         <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {ecoHabits.map((habit, index) => (
             <li
               key={index}
-              className="flex items-center gap-2 bg-salmon border border-lightgreen rounded-lg p-3 hover:bg-lightgreen hover:text-white transition duration-200"
+              className="flex items-center gap-2 bg-[#d4927e] border border-[#b8cec1] rounded-lg p-3 hover:bg-[#b8cec1] hover:text-white transition duration-200"
             >
-              <span className="text-lg font-semibold text-darkgreen">
+              <span className="text-lg font-semibold text-[#2d5016]">
                 {habit.name}
               </span>
             </li>
@@ -62,12 +62,12 @@ export default function Stats() {
       </section>
 
       {/* Monthly Calendar */}
-      <section className="bg-mint rounded-2xl shadow-md p-6 border border-lightgreen">
-        <h3 className="text-5xl text-darkgreen font-extrabold mb-6 text-center">
+      <section className="bg-[#b8cec1] rounded-2xl shadow-md p-6 border border-[#b8cec1]">
+        <h3 className="text-5xl text-[#2d5016] font-extrabold mb-6 text-center">
           {format(currentMonth, "MMMM yyyy")}
         </h3>
 
-        <div className="grid grid-cols-7 text-center font-bold mb-4 text-darkgreen">
+        <div className="grid grid-cols-7 text-center font-bold mb-4 text-[#2d5016]">
           <div>Mon</div>
           <div>Tue</div>
           <div>Wed</div>
@@ -87,8 +87,8 @@ export default function Stats() {
                 key={dayNum}
                 className={`aspect-square flex items-center justify-center rounded-lg border text-sm transition duration-200 ${
                   isEcoDay
-                    ? "bg-salmon text-beije font-bold shadow-md"
-                    : "bg-beije text-darkgreen hover:bg-darkgreen hover:text-white"
+                    ? "bg-[#d4927e] text-[#2d5016] font-bold shadow-md"
+                    : "bg-[#b8cec1] text-[#2d5016] hover:bg-[#2d5016] hover:text-white"
                 }`}
                 style={{
                   gridColumnStart: dayNum === 1 ? offset : undefined,
@@ -102,8 +102,8 @@ export default function Stats() {
       </section>
 
       {/* Weekly Chart */}
-      <section className="bg-mint rounded-2xl shadow-md p-6 border border-lightgreen">
-        <h3 className="text-3xl font-bold mb-4 text-darkgreen text-center">
+      <section className="bg-[#b8cec1] rounded-2xl shadow-md p-6 border border-[#b8cec1]">
+        <h3 className="text-3xl font-bold mb-4 text-[#2d5016] text-center">
           Weekly Eco Actions
         </h3>
         <ResponsiveContainer width="100%" height={300}>
@@ -111,23 +111,23 @@ export default function Stats() {
             data={weeklyData}
             margin={{ top: 20, right: 20, left: 0, bottom: 5 }}
           >
-            <CartesianGrid strokeDasharray="3 3" stroke="beige" />
-            <XAxis dataKey="week" tick={{ fill: "darkgreen", fontWeight: 600 }} />
-            <YAxis tick={{ fill: "darkgreen", fontWeight: 600 }} />
+            <CartesianGrid strokeDasharray="3 3" stroke="#f5e6d3" />
+            <XAxis dataKey="week" tick={{ fill: "#2d5016", fontWeight: 600 }} />
+            <YAxis tick={{ fill: "#2d5016", fontWeight: 600 }} />
             <Tooltip
               cursor={{ fill: "rgba(0,0,0,0.05)" }}
               contentStyle={{
-                backgroundColor: "mint",
+                backgroundColor: "#b8cec1",
                 borderRadius: "8px",
-                border: "1px solid lightgreen",
-                color: "darkgreen",
+                border: "1px solid #b8cec1",
+                color: "#2d5016",
               }}
             />
             <Legend />
             <Bar
               dataKey="actions"
               name="Eco Actions"
-              fill="darkgreen"
+              fill="#d4927e"
               radius={[20, 20, 0, 0]}
             />
           </BarChart>

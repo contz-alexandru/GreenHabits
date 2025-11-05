@@ -19,29 +19,29 @@ export default function Profile() {
 
   return (
     <main className="p-6 max-w-2xl mx-auto space-y-6">
-      <section className="bg-white p-6 rounded shadow-md">
-        <h2 className="text-2xl font-semibold mb-4">Profile</h2>
-        <p><strong>Name:</strong> {user.name}</p>
-        <p><strong>Email:</strong> {user.email}</p>
-        <p><strong>Total Habits Completed:</strong> {user.totalHabits}</p>
-        <p><strong>Current Streak:</strong> {user.streak} days</p>
+      <section className="bg-[#b8cec1] p-6 rounded shadow-md">
+        <h2 className="text-2xl font-semibold mb-4 text-[#2d5016]">Profile</h2>
+        <p className="text-[#2d5016]"><strong>Name:</strong> {user.name}</p>
+        <p className="text-[#2d5016]"><strong>Email:</strong> {user.email}</p>
+        <p className="text-[#2d5016]"><strong>Total Habits Completed:</strong> {user.totalHabits}</p>
+        <p className="text-[#2d5016]"><strong>Current Streak:</strong> {user.streak} days</p>
       </section>
 
-      <section className="bg-white p-6 rounded shadow-md">
-        <h3 className="text-xl font-semibold mb-4">Your Habits</h3>
+      <section className="bg-[#b8cec1] p-6 rounded shadow-md">
+        <h3 className="text-xl font-semibold mb-4 text-[#2d5016]">Your Habits</h3>
         <ul className="space-y-2">
           {habits.map((habit) => (
             <li
               key={habit.id}
               className={`flex items-center justify-between p-3 border rounded shadow-sm transition ${
-                habit.done ? "bg-green-100 line-through text-green-600" : "bg-gray-50"
+                habit.done ? "bg-[#b8cec1] line-through text-[#2d5016]" : "bg-[#d4927e]"
               }`}
             >
-              <span>{habit.name}</span>
+              <span className="text-[#2d5016]">{habit.name}</span>
               <button
                 onClick={() => toggleHabit(habit.id)}
                 className={`px-3 py-1 rounded text-sm font-medium transition ${
-                  habit.done ? "bg-green-500 text-white" : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+                  habit.done ? "bg-[#2d5016] text-white" : "bg-[#b8cec1] text-[#2d5016] hover:bg-[#2d5016] hover:text-white"
                 }`}
               >
                 {habit.done ? "Done" : "Mark Done"}
