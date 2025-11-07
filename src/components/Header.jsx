@@ -12,11 +12,11 @@ export default function Header({ isLoggedIn, handleLogout, toggleLoginState }) {
             style={{ width: '400px', height: 'auto' }}
           />
         </div>
-        {/* Mesaj centrat */}
+        {/* Mesaj centrat cu fontul Codec Pro */}
         <div className="justify-self-center">
           <span
             className="text-2xl font-bold tracking-wide text-center"
-            style={{ color: 'beige' }}
+            style={{color: 'beige',fontFamily: 'Arial Black, Arial, Impact, sans-serif',fontWeight: 900, letterSpacing: '0.08em'}}
           >
             Track your eco-friendly habits daily!
           </span>
