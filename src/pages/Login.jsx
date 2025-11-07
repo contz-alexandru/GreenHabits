@@ -1,12 +1,11 @@
-// src/pages/Login.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../firebase/firebase_config"; // 🔹 importă instanța Firebase
 import {
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-} from "firebase/auth";
-import { loginWithGoogle } from "../pages/authService"; // 🔹 păstrăm loginul Google
+  registerWithEmail,
+  loginWithEmail,
+  loginWithGoogle
+} from "../pages/authService"; // ✅ folosim funcțiile din authService
+
 
 const Login = () => {
   const navigate = useNavigate();
@@ -22,16 +21,16 @@ const Login = () => {
 
     try {
       if (isLoginMode) {
-        await signInWithEmailAndPassword(auth, email, password);
+        await loginWithEmail(email, password);
       } else {
         if (password !== confirmPassword) {
           setError("Parolele nu coincid!");
           return;
         }
-        await createUserWithEmailAndPassword(auth, email, password);
+        await registerWithEmail(email, password); // 🔹 creează cont + document Firestore
       }
 
-      // 🔹 Așteptăm puțin pentru ca Firebase să actualizeze userul
+      // 🔹 mic delay pentru a permite actualizarea stării Firebase
       setTimeout(() => navigate("/profile"), 300);
     } catch (error) {
       console.error("Auth error:", error.message);
@@ -42,15 +41,13 @@ const Login = () => {
   const handleGoogleLogin = async () => {
     setError("");
     try {
-      await loginWithGoogle();
+      await loginWithGoogle(); // 🔹 logare + creare document dacă nu există
       navigate("/profile");
     } catch (err) {
       console.error("Google login error:", err);
       setError("Eroare la conectarea cu Google.");
     }
   };
-
-  
 
   return (
     <div className="w-[430px] bg-bigbox p-8 rounded-2xl shadow-lg mx-auto mt-4">
