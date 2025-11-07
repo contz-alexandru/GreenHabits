@@ -6,6 +6,7 @@ import Stats from "./pages/Stats";
 import Login from "./pages/Login";
 import Header from "./components/Header";
 import Home from "./pages/Home";
+import Leaderboard from "./pages/Leaderboard";
 import Redeem from "./pages/Redeem";
 import DailyTasks from "./pages/DailyTasks";
 import { useAuth } from "./hooks/useAuth";
@@ -50,6 +51,13 @@ function AppContent() {
             Stats
           </Link>
           <Link
+  to="/leaderboard"
+  className="bg-bigbox text-darkgreen px-6 py-2 rounded-lg font-semibold hover:bg-smallbox transition shadow-md"
+>
+  Leaderboard
+</Link>
+
+          <Link
             to="/redeem"
             className="bg-bigbox text-darkgreen px-6 py-2 rounded-lg font-semibold hover:bg-smallbox transition shadow-md"
           >
@@ -61,6 +69,7 @@ function AppContent() {
     >
       Daily Tasks
     </Link>
+    
         </nav>
       )}
 
@@ -86,6 +95,11 @@ function AppContent() {
             )
           }
         />
+        <Route
+  path="/leaderboard"
+  element={isLoggedIn ? <Leaderboard /> : <Navigate to="/login" />}
+/>
+
                 <Route
           path="/redeem"
           element={
