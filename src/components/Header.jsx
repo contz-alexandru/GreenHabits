@@ -1,5 +1,6 @@
 // src/components/Header.jsx
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import logo from "../assets/logo-green-habits.png";
 import { useAuth } from "../hooks/useAuth"; // pentru autentificare reală
 import { logoutUser } from "../pages/authService"; // funcția de logout din Firebase
@@ -25,11 +26,13 @@ export default function Header() {
       <div className="grid grid-cols-3 items-center w-full">
         {/* Logo stânga */}
         <div className="justify-self-start">
-          <img
-            src={logo}
-            alt="Green Habits Logo"
-            style={{ width: "400px", height: "auto" }}
-          />
+          <Link to="/" className="inline-block">
+            <img
+              src={logo}
+              alt="Green Habits Logo"
+              className="w-[200px] md:w-[300px] lg:w-[400px] h-auto transition-all duration-300 hover:scale-105 hover:shadow-[0_0_15px_rgba(37,89,56,0.4)]"
+            />
+          </Link>
         </div>
 
         {/* Mesaj central */}

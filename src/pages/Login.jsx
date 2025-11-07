@@ -32,7 +32,7 @@ const Login = () => {
       }
 
       // 🔹 Așteptăm puțin pentru ca Firebase să actualizeze userul
-      setTimeout(() => navigate("/profile"), 300);
+      setTimeout(() => navigate("/"), 300);
     } catch (error) {
       console.error("Auth error:", error.message);
       setError("Eroare la autentificare. Verifică datele și încearcă din nou.");
@@ -43,7 +43,7 @@ const Login = () => {
     setError("");
     try {
       await loginWithGoogle();
-      navigate("/profile");
+      navigate("/");
     } catch (err) {
       console.error("Google login error:", err);
       setError("Eroare la conectarea cu Google.");
