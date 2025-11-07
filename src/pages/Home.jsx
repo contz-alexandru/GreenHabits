@@ -44,18 +44,21 @@ export default function Home({ isLoggedIn, user }) {
 
   return (
     <section className="min-h-screen bg-[#F5EFE6] px-10 py-10">
-      {/* 🔹 Text principal */}
-<div className="text-center max-w-4xl mx-auto mt-16 mb-16">
-  <h1 className="text-3xl md:text-5xl font-bold text-darkgreen mb-6 leading-tight">
-    Build Sustainable Habits 🌱
-  </h1>
-  <p className="text-darkgreen text-base md:text-lg">
-    Track your eco-friendly actions and make sustainability a part of your lifestyle.
-    Every small effort counts — together, we make a greener world!
-  </p>
-</div>
 
-      
+        
+      {/* 🔹 Text principal — vizibil doar când utilizatorul este autentificat */}
+{isLoggedIn && (
+  <div className="text-center max-w-4xl mx-auto mt-16 mb-16">
+    <h1 className="text-3xl md:text-5xl font-bold text-darkgreen mb-6 leading-tight">
+      Build Sustainable Habits 🌱
+    </h1>
+    <p className="text-darkgreen text-base md:text-lg">
+      Track your eco-friendly actions and make sustainability a part of your lifestyle.
+      Every small effort counts — together, we make a greener world!
+    </p>
+  </div>
+)}
+
 
       {/* 🔹 Card mare cu statistici */}
       {isLoggedIn && (
@@ -74,12 +77,17 @@ export default function Home({ isLoggedIn, user }) {
           </div>
         </div>
       )}
-
       {/* 🔹 Citat motivațional cu lungime egală */}
-<div className="bg-[#DDE6D6] rounded-3xl shadow-xl p-10 max-w-6xl mx-auto border border-[#C9D7C3] mb-12 text-center">
-  <h2 className="text-2xl font-bold text-[#2d5016] mb-6">Eco Inspiration </h2>
-  <p className="italic text-[#2d5016] text-lg">“{quote}”</p>
-</div>
+      {isLoggedIn && (
+      
+          <div className="bg-[#DDE6D6] rounded-3xl shadow-xl p-10 max-w-6xl mx-auto border border-[#C9D7C3] mb-12 text-center">
+         <h2 className="text-2xl font-bold text-[#2d5016] mb-6">Eco Inspiration </h2>
+         <p className="italic text-[#2d5016] text-lg">“{quote}”</p>
+        </div>
+
+             )}
+
+        
 
 
       {/* 🔹 Recomandări de recompense */}
@@ -119,29 +127,40 @@ export default function Home({ isLoggedIn, user }) {
           )}
         </div>
       )}
-
-      {/* 🔹 Layout pentru login */}
-      {!isLoggedIn && (
-        <div className="flex flex-col lg:flex-row items-center justify-center w-full max-w-6xl mx-auto gap-8">
-          <div className="w-full lg:w-3/4 text-center lg:text-left">
-            <p className="text-darkgreen text-base md:text-lg mb-8 max-w-lg mx-auto lg:mx-0">
-              Stay motivated and track your eco-friendly activities every day. 
-              Together we can make small changes that lead to a big impact 🌍.
-            </p>
-            {location.pathname !== "/login" && (
-              <Link
-                to="/login"
-                className="inline-block bg-[#F5EFE6] text-[#2d5016] font-medium px-6 py-2.5 rounded-2xl shadow-md hover:opacity-90 transition"
-              >
-                Learn More
-              </Link>
-            )}
-          </div>
-          <div className="w-full lg:w-1/4">
-            <Login />
-          </div>
-        </div>
+     {/* 🔹 Secțiune principală — doar pentru utilizatori NEautentificați */}
+{!isLoggedIn && (
+  <div className="flex flex-col lg:flex-row items-center justify-center min-h-[80vh] max-w-6xl mx-auto px-6">
+    {/* Text principal */}
+    <div className="w-full lg:w-3/4 text-left mb-10 lg:mb-0">
+      <h1 className="text-3xl md:text-5xl font-bold text-darkgreen mb-4 leading-tight">
+        Build Sustainable Habits 🌱
+      </h1>
+      <p className="text-darkgreen text-base md:text-lg mb-6 max-w-2xl">
+        Track your eco-friendly actions and make sustainability a part of your lifestyle.
+        Every small effort counts — together, we make a greener world!
+      </p>
+      <p className="text-darkgreen text-base md:text-lg mb-6 max-w-lg">
+        Stay motivated and track your eco-friendly activities every day. 
+        Together we can make small changes that lead to a big impact 🌍.
+      </p>
+      {location.pathname !== "/login" && (
+        <Link
+          to="/login"
+          className="inline-block bg-[#F5EFE6] text-[#2d5016] font-medium px-6 py-2.5 rounded-2xl shadow-md hover:opacity-90 transition"
+        >
+          Learn More
+        </Link>
       )}
+    </div>
+
+    {/* Formular Login */}
+    <div className="w-full lg:w-1/4">
+      <Login />
+    </div>
+  </div>
+)}
+
+
     </section>
   );
 }
