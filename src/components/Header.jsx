@@ -76,26 +76,6 @@ export default function Header() {
     </Link>
   ))}
 </nav>
-
-
-          {/* User info */}
-          {user && (
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => (window.location.href = "/profile")}
-                className="hidden sm:inline bg-[#F5EFE6] text-[#2d5016] font-bold text-sm rounded px-2 py-1 hover:opacity-90 transition"
-              >
-                {firstName}
-              </button>
-
-              <button
-                onClick={handleLogout}
-                className="bg-[#F5EFE6] rounded p-2 hover:bg-opacity-80 transition flex items-center justify-center"
-              >
-                <img src={logoutIcon} alt="Logout" className="w-5 h-5 sm:w-6 sm:h-6 invert" />
-              </button>
-            </div>
-          )}
         </div>
       </div>
     </header>

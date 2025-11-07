@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { db } from "../firebase/firebase_config";
 import { doc, getDoc } from "firebase/firestore";
 import { useAuth } from "../hooks/useAuth";
+import { logoutUser } from "../pages/authService";
+
+import logoutIcon from "../assets/logout_icon.svg";
 
 export default function Profile() {
   const [user, setUser] = useState({
@@ -22,6 +25,10 @@ export default function Profile() {
 
   // poți înlocui cu id real dacă folosești auth
   const auth = useAuth();
+
+  const handleLogout = () => {
+      if (user) logoutUser();
+    };
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -108,10 +115,11 @@ export default function Profile() {
           <p className="text-[#2E4D32]">
             <strong>Total Habits Completed:</strong> {userData.totalHabits}
           </p>
+          
         </div>
 
         {/* Poză de profil centrată vertical */}
-        <div className="flex-1 flex items-center justify-center">
+        <div className="flex-1 flex items-center justify-center relative">
           {userData.profilePicture ? (
             <img
               src={userData.profilePicture}
@@ -123,6 +131,16 @@ export default function Profile() {
               No Image
             </div>
           )}
+          <button
+            onClick={logoutUser}
+            className="absolute bottom-2 right-2 bg-[#F5EFE6] rounded-full p-3 hover:bg-opacity-80 transition shadow-md flex items-center justify-center"
+          >
+            <img
+              src={logoutIcon}
+              alt="Logout"
+              className="w-6 h-6 invert"
+            />
+          </button>
         </div>
       </section>
 
