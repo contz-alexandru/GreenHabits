@@ -56,12 +56,12 @@ export default function Header() {
           <nav className="flex gap-6 sm:gap-8 items-center">
   {[
     { icon: homeIcon, label: "Home", path: "/" },
-    { icon: statsIcon, label: "Stats", path: "/stats" },
-    { icon: mapIcon, label: "Map", path: "/map" },
     { icon: tasksIcon, label: "Tasks", path: "/tasks" },
-    { icon: rentIcon, label: "Borrow", path: "/rent" },
+    // { icon: rentIcon, label: "Borrow", path: "/rent" },
     { icon: redeemIcon, label: "Redeem", path: "/redeem" },
+    { icon: mapIcon, label: "Map", path: "/map" },
     { icon: leaderboardIcon, label: "Leaderboard", path: "/leaderboard" },
+    { icon: statsIcon, label: "Stats", path: "/stats" },
     { icon: userIcon, label: "Profile", path: "/profile" },
   ].map((item, idx) => (
     <Link
