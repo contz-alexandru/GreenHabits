@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+// Toate task-urile din categorii (cu cele cerute eliminate)
 const taskCategories = [
   {
     name: "Daily Eco Habits",
@@ -14,34 +15,52 @@ const taskCategories = [
       "Skip the elevator — take the stairs",
       "Avoid single-use plastic (e.g., straws, cutlery, bags)",
       "Sort and recycle household waste",
-      "Open windows instead of using AC"
+      "Open windows instead of using AC",
+      "Riding a bike",
+      "Donating clothes",
+      "Recycling plastic",
+      "Planting a tree",
+      "Using public transport",
+      "Repair a torn piece of clothing",
+      "Refill or reuse a cleaning bottle",
+      "Pick up litter on your street",
+      "Refill your soap/shampoo instead of buying new bottles",
+      "Use solid soap or shampoo bars instead of bottled ones"
     ]
   },
   {
     name: "Sustainable Living",
     key: "sustain",
     tasks: [
-      "Eat a vegetarian or vegan meal today",
       "Avoid food waste — use leftovers creatively",
       "Buy local produce",
       "Compost food scraps",
       "Bring your own shopping bag",
       "Refuse unnecessary receipts or packaging",
       "Donate unused clothes or items",
-      "Repair something instead of replacing it"
+      "Repair something instead of replacing it",
+      // "Share a homemade meal with a neighbor",
+      "Switch one room to LED bulbs",
+      "Write down three things you’re grateful for in nature",
+      "Swap something (book, clothes, etc.) with a friend",
+      "Borrow or lend a tool instead of buying one"
     ]
   },
   {
     name: "Energy Saving",
     key: "energy",
     tasks: [
-      "Do laundry with cold water",
       "Hang clothes to dry instead of using the dryer",
       "Turn off the tap while brushing teeth",
       "Use energy-efficient bulbs",
       "Check for leaky faucets and fix them",
       "Reduce screen brightness to save power",
-      "Collect rainwater for plants"
+      "Collect rainwater for plants",
+      "Cook using a lid on pans to save energy",
+      "Turn off power strips at night",
+      // "Air-dry the dishes instead of using the dishwasher dry cycle",
+      "Set the washing machine to eco mode",
+      "Work or study using only natural daylight today"
     ]
   },
   {
@@ -49,11 +68,14 @@ const taskCategories = [
     key: "nature",
     tasks: [
       "Plant a tree or indoor plant",
-      "Spend 10 minutes in nature",
-      "Pick up litter in your area",
-      "Read 10 pages of a book",
+      // "Pick up litter in your area",
       "Share an eco tip with a friend",
-      "Join or volunteer for a green community project"
+      "Join or volunteer for a green community project",
+      "Leave seeds or water for birds",
+      "Water your home or garden plants",
+      "Sketch or photograph a nature scene",
+      "Catalog three plant or animal species you saw today",
+      "Take a break outside during lunch and observe local wildlife"
     ]
   },
   {
@@ -62,56 +84,58 @@ const taskCategories = [
     tasks: [
       "Unsubscribe from unused newsletters",
       "Delete unnecessary files/emails",
-      "Use dark mode on your devices",
-      "Spend 1 hour tech-free today"
+      "Spend 1 hour tech-free today",
+      "Organize your downloads folder",
+      "Update your apps instead of buying a new device",
+      "Set a green wallpaper/background",
+      "Batch reply to messages to save device energy"
+      // "Close unused browser tabs and apps to lower energy use"
     ]
   }
 ];
 
+// Flat list all
+function getAllTasksAsList() {
+  const arr = [];
+  taskCategories.forEach(cat => {
+    cat.tasks.forEach(task =>
+      arr.push({
+        text: task,
+        category: cat.name,
+        key: cat.key,
+        points: getRandomInt(5, 20),
+        done: false,
+        proof: null
+      })
+    );
+  });
+  return arr;
+}
+// Helper pt shuffle
+function shuffleArr(arr, seed = 1) {
+  let a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const randomSeed = Math.sin(seed + i) * 10000;
+    const j = Math.floor((randomSeed - Math.floor(randomSeed)) * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function getStoredTasks(dateKey) {
-  const stored = localStorage.getItem("daily-tasks-history");
-  if (!stored) return null;
-  const parsed = JSON.parse(stored);
-  return parsed[dateKey] || null;
+// Principal split logic: jumate jumate, constant pe zi
+function splitTasksForTodayAndYesterday() {
+  let all = getAllTasksAsList();
+  // Shuffle cu seed astfel incat sa fie constant pe aceeasi zi
+  const todaySeed = Number(new Date().toISOString().slice(0, 10).replace(/-/g, ''));
+  const arrShuffled = shuffleArr(all, todaySeed);
+  const half = Math.ceil(arrShuffled.length / 2);
+  const todayTasks = arrShuffled.slice(0, half);
+  const yesterdayTasks = arrShuffled.slice(half);
+  return { todayTasks, yesterdayTasks };
 }
-
-function storeTasks(dateKey, tasks) {
-  const stored = localStorage.getItem("daily-tasks-history");
-  let parsed = {};
-  if (stored) parsed = JSON.parse(stored);
-  parsed[dateKey] = tasks;
-  localStorage.setItem("daily-tasks-history", JSON.stringify(parsed));
-}
-
-function getDailyTasks(dateKey) {
-  const existing = getStoredTasks(dateKey);
-  if (existing) return existing;
-  const selection = taskCategories.map(cat => {
-    const task = cat.tasks[getRandomInt(0, cat.tasks.length - 1)];
-    return {
-      text: task,
-      category: cat.name,
-      key: cat.key,
-      points: getRandomInt(5, 20),
-      done: false,
-      proof: null
-    };
-  });
-  storeTasks(dateKey, selection);
-  return selection;
-}
-
-const sampleYesterdayTasks = [
-  { category: "Daily Eco Habits", text: "Bring a reusable water bottle", points: 10, done: true },
-  { category: "Sustainable Living", text: "Eat a vegetarian meal", points: 18, done: false },
-  { category: "Energy Saving", text: "Do laundry with cold water", points: 12, done: true },
-  { category: "Nature Mindfulness", text: "Spend 10 minutes in nature", points: 15, done: true },
-  { category: "Digital Sustainability", text: "Use dark mode on your devices", points: 7, done: false }
-];
 
 function ProofModal({ open, onClose, onSubmit }) {
   const [file, setFile] = useState(null);
@@ -175,15 +199,9 @@ function ProofModal({ open, onClose, onSubmit }) {
 }
 
 export default function DailyTasks() {
-  const today = new Date();
-  const todayKey = today.toISOString().slice(0, 10);
-
-  const yesterdayDate = new Date(today.getTime() - 86400000);
-  const yesterdayKey = yesterdayDate.toISOString().slice(0, 10);
-
-  const [tasks, setTasks] = useState(() => getDailyTasks(todayKey));
+  const { todayTasks, yesterdayTasks } = splitTasksForTodayAndYesterday();
+  const [tasks, setTasks] = useState(todayTasks);
   const [proofIdx, setProofIdx] = useState(null);
-  const yesterdayTasks = getStoredTasks(yesterdayKey) || sampleYesterdayTasks;
 
   const handleSubmitProof = (proof) => {
     const updated = [...tasks];
@@ -193,7 +211,6 @@ export default function DailyTasks() {
       proof
     };
     setTasks(updated);
-    storeTasks(todayKey, updated);
     setProofIdx(null);
   };
 
@@ -212,7 +229,7 @@ export default function DailyTasks() {
             style={{ backgroundColor: "var(--color-bigbox)", borderColor: "var(--color-smallbox)" }}
           >
             <h2 className="text-3xl font-extrabold mb-8" style={{ color: "var(--color-darkgreen)" }}>
-              Today's Tasks <span className="text-xl">🌎</span>
+              Today's Tasks <span className="text-xl"></span>
             </h2>
             <ul className="space-y-5">
               {tasks.map((task, idx) => (
@@ -268,7 +285,7 @@ export default function DailyTasks() {
               className="text-3xl font-extrabold mb-8 text-right"
               style={{ color: "var(--color-darkgreen)" }}
             >
-              Yesterday's Tasks <span className="text-xl">📅</span>
+              Yesterday's Tasks <span className="text-xl"></span>
             </h2>
             <ul className="space-y-5">
               {yesterdayTasks.map((task, idx) => (
@@ -297,10 +314,10 @@ export default function DailyTasks() {
                     </span>
                   </div>
                   <span
-                    className={`font-bold ml-4 ${task.done ? "" : "opacity-40"}`}
+                    className={`font-bold ml-4 opacity-40`}
                     style={{ color: "var(--color-darkgreen)" }}
                   >
-                    {task.done ? "Done" : "Not done"}
+                    Not done
                   </span>
                 </li>
               ))}
