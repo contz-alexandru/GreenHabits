@@ -23,10 +23,10 @@ export default function Home({ isLoggedIn, user }) {
 
   // 🔹 Fallback user pentru testare
   const fallbackUser = {
-    ecoPoints: 1000,
+    ecoPoints: 1600,
     totalHabits: 42,
-    co2Saved: 18.5,
-    rewards: 3,
+    co2Saved: 10.07,
+    rewards: 5,
   };
   const activeUser = user || fallbackUser;
 
@@ -116,13 +116,15 @@ export default function Home({ isLoggedIn, user }) {
                   to="/redeem"
                   className="inline-block bg-[#2d5016] text-[#F5EFE6] font-semibold px-6 py-2.5 rounded-xl shadow-md hover:opacity-90 transition"
                 >
-                  Vezi toate recompensele
+                  <p className="text-center text-beige font-medium">
+                  See all rewards
+                  </p>
                 </Link>
               </div>
             </>
           ) : (
             <p className="text-center text-[#2d5016] font-medium">
-              Nu ai suficiente puncte pentru a revendica o recompensă momentan.
+              You don't have enough points to claim a reward at the moment.
             </p>
           )}
         </div>

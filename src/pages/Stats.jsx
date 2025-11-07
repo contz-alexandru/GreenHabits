@@ -99,7 +99,7 @@ export default function Stats() {
     let actions = [];
     let tab = [];
     if (year === 2025 && month === 10) {
-      ecoDays = [2, 4, 5, 6, 7];
+      ecoDays = [2, 4, 5, 6, 7, 8];
       actions = ecoDays.map((d, i) => ({
         day: d,
         name: ecoActionsList[i % ecoActionsList.length],
