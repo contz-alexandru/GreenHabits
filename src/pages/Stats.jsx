@@ -244,7 +244,7 @@ export default function Stats() {
         {/* Calendar + streak */}
         <section className="bg-bigbox rounded-2xl shadow-md p-4 sm:p-20 border border-smallbox box-animated"
           style={{ backgroundColor: "var(--color-bigbox)", borderColor: "var(--color-smallbox)" }}>
-          <div className="mx-auto" style={{ maxWidth: "40rem" }}>
+          <div className="mx-auto" style={{ maxWidth: "30rem" }}>
             <div className="flex items-center justify-between mb-8">
               <div className="flex items-center gap-6">
                 <button
@@ -433,8 +433,8 @@ export default function Stats() {
             borderColor: "var(--color-earth)",
             borderWidth: 2,
             boxSizing: "border-box",
-            maxWidth: "120rem",
-            width: "100%",
+            maxWidth: "100rem",
+            width: "70%",
           }}>
           <div>
             <div className="flex flex-col items-center justify-between mb-3">
@@ -456,7 +456,7 @@ export default function Stats() {
                 {format(displayedMonth, "MMMM yyyy")}
               </div>
             </div>
-            <div style={{ width: "100%", height: 320 }}>
+            <div style={{ width: "100%", height: 250 }}>
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
                   data={weeklyData}
