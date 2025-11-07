@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 
-// Toate task-urile din categorii (cu cele cerute eliminate)
+const priorityTasks = [
+  { text: "Riding a bike", category: "Daily Eco Habits", key: "eco" },
+  { text: "Donating clothes", category: "Daily Eco Habits", key: "eco" },
+  { text: "Recycling plastic", category: "Daily Eco Habits", key: "eco" },
+  { text: "Planting a tree", category: "Daily Eco Habits", key: "eco" },
+  { text: "Using public transport", category: "Daily Eco Habits", key: "eco" }
+];
+
 const taskCategories = [
   {
     name: "Daily Eco Habits",
@@ -16,16 +23,12 @@ const taskCategories = [
       "Avoid single-use plastic (e.g., straws, cutlery, bags)",
       "Sort and recycle household waste",
       "Open windows instead of using AC",
-      "Riding a bike",
-      "Donating clothes",
-      "Recycling plastic",
-      "Planting a tree",
-      "Using public transport",
       "Repair a torn piece of clothing",
       "Refill or reuse a cleaning bottle",
       "Pick up litter on your street",
       "Refill your soap/shampoo instead of buying new bottles",
       "Use solid soap or shampoo bars instead of bottled ones"
+      // REMOVED the 5 priority ones & will inject later.
     ]
   },
   {
@@ -39,7 +42,6 @@ const taskCategories = [
       "Refuse unnecessary receipts or packaging",
       "Donate unused clothes or items",
       "Repair something instead of replacing it",
-      // "Share a homemade meal with a neighbor",
       "Switch one room to LED bulbs",
       "Write down three things you’re grateful for in nature",
       "Swap something (book, clothes, etc.) with a friend",
@@ -58,7 +60,6 @@ const taskCategories = [
       "Collect rainwater for plants",
       "Cook using a lid on pans to save energy",
       "Turn off power strips at night",
-      // "Air-dry the dishes instead of using the dishwasher dry cycle",
       "Set the washing machine to eco mode",
       "Work or study using only natural daylight today"
     ]
@@ -68,7 +69,6 @@ const taskCategories = [
     key: "nature",
     tasks: [
       "Plant a tree or indoor plant",
-      // "Pick up litter in your area",
       "Share an eco tip with a friend",
       "Join or volunteer for a green community project",
       "Leave seeds or water for birds",
@@ -89,29 +89,35 @@ const taskCategories = [
       "Update your apps instead of buying a new device",
       "Set a green wallpaper/background",
       "Batch reply to messages to save device energy"
-      // "Close unused browser tabs and apps to lower energy use"
     ]
   }
 ];
 
-// Flat list all
-function getAllTasksAsList() {
+function getAllOtherTasks() {
+  // Flat list all tasks except those in priorityTasks
+  const prioTexts = new Set(priorityTasks.map(t => t.text));
   const arr = [];
   taskCategories.forEach(cat => {
-    cat.tasks.forEach(task =>
-      arr.push({
-        text: task,
-        category: cat.name,
-        key: cat.key,
-        points: getRandomInt(5, 20),
-        done: false,
-        proof: null
-      })
-    );
+    cat.tasks.forEach(task => {
+      if (!prioTexts.has(task)) {
+        arr.push({
+          text: task,
+          category: cat.name,
+          key: cat.key,
+          points: getRandomInt(5, 20),
+          done: false,
+          proof: null
+        });
+      }
+    });
   });
   return arr;
 }
-// Helper pt shuffle
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 function shuffleArr(arr, seed = 1) {
   let a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
@@ -121,19 +127,26 @@ function shuffleArr(arr, seed = 1) {
   }
   return a;
 }
-function getRandomInt(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
 
-// Principal split logic: jumate jumate, constant pe zi
-function splitTasksForTodayAndYesterday() {
-  let all = getAllTasksAsList();
-  // Shuffle cu seed astfel incat sa fie constant pe aceeasi zi
+function genTodayYesterdayTasks() {
+  // TODAY = always top 5 priority
+  const todayTasks = priorityTasks.map(t => ({
+    ...t,
+    points: getRandomInt(11, 18),
+    done: false,
+    proof: null
+  }));
+
+  // YESTERDAY = random 5 from rest, stable per day
+  let others = getAllOtherTasks();
   const todaySeed = Number(new Date().toISOString().slice(0, 10).replace(/-/g, ''));
-  const arrShuffled = shuffleArr(all, todaySeed);
-  const half = Math.ceil(arrShuffled.length / 2);
-  const todayTasks = arrShuffled.slice(0, half);
-  const yesterdayTasks = arrShuffled.slice(half);
+  const shuffled = shuffleArr(others, todaySeed + 17);
+  const yesterdayTasks = shuffled.slice(0, 5).map(t => ({
+    ...t,
+    done: false,
+    proof: null
+  }));
+
   return { todayTasks, yesterdayTasks };
 }
 
@@ -199,7 +212,7 @@ function ProofModal({ open, onClose, onSubmit }) {
 }
 
 export default function DailyTasks() {
-  const { todayTasks, yesterdayTasks } = splitTasksForTodayAndYesterday();
+  const { todayTasks, yesterdayTasks } = genTodayYesterdayTasks();
   const [tasks, setTasks] = useState(todayTasks);
   const [proofIdx, setProofIdx] = useState(null);
 
@@ -275,7 +288,6 @@ export default function DailyTasks() {
               ))}
             </ul>
           </section>
-
           {/* Yesterday's tasks */}
           <section
             className="bg-bigbox rounded-2xl shadow-md p-8 border border-smallbox flex-1"
