@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import Redeem from "./pages/Redeem";
+import DailyTasks from "./pages/DailyTasks";
 import { useAuth } from "./hooks/useAuth";
 import { AuthProvider } from "./components/AuthProvider";
 
@@ -57,6 +58,12 @@ function AppContent() {
           >
             Redeem
           </Link>
+          <Link
+      to="/daily"
+      className="bg-bigbox text-darkgreen px-6 py-2 rounded-lg font-semibold hover:bg-smallbox transition shadow-md"
+    >
+      Daily Tasks
+    </Link>
         </nav>
       )}
 
@@ -92,6 +99,17 @@ function AppContent() {
             )
           }
         />
+        <Route
+  path="/daily"
+  element={
+    isLoggedIn ? (
+      <DailyTasks />
+    ) : (
+      <Navigate to="/login" />
+    )
+  }
+/>
+
         <Route
           path="/login"
           element={!isLoggedIn ? <Login /> : <Navigate to="/profile" />}
