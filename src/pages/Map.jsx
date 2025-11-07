@@ -5,15 +5,17 @@ import L from 'leaflet';
 
 const sibiuCenter = [45.7928, 24.1521];
 
+// Use only available icons from leaflet-color-markers
 const iconUrls = {
-  Plastic: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png",
-  Glass: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-grey.png",
-  Electronics: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-yellow.png",
-  Batteries: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-violet.png",
-  Donations: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png",
-  Paper: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-orange.png",
-  Textiles: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png",
-  Aluminum: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-grey.png"
+  Plastic:     "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png",     // blue
+  Glass:       "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png",    // green
+  Electronics: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-yellow.png",   // yellow
+  Batteries:   "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-violet.png",   // violet
+  Donations:   "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png",      // red
+  Paper:       "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-orange.png",   // orange
+  Textiles:    "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-grey.png",     // grey
+  Aluminum:    "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-black.png",    // black
+  SGR:         "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-orange.png"     // pink
 };
 
 function getIcon(type) {
@@ -28,55 +30,54 @@ function getIcon(type) {
 }
 
 const allLocations = [
-  { name: "Plastic Container Kaufland", type: "Plastic", address: "Str. Mihai Viteazu 2, Sibiu", position: [45.7937, 24.1405] },
+  // Unique, non-overlapping recycling/donation markers
   { name: "Glass Recycling Bin Promenada Mall", type: "Glass", address: "Str. Lector 1, Sibiu", position: [45.7856, 24.1599] },
-  { name: "Electronics Collection Carrefour", type: "Electronics", address: "Str. Sibiului 5, Sibiu", position: [45.8004, 24.1317] },
-  { name: "Battery Collection Mega Image", type: "Batteries", address: "Str. Rahovei 34, Sibiu", position: [45.7838, 24.1465] },
+  { name: "Battery Collection Mega Image", type: "Batteries", address: "Str. Rahovei 34, Sibiu", position: [45.7838, 24.1465] }, // SGR present, but battery is a specialty bin
   { name: "Clothing Donation Bin Dumbrăvii", type: "Donations", address: "Calea Dumbrăvii 26, Sibiu", position: [45.7868, 24.1561] },
-  { name: "Paper Recycling ASTRA Park", type: "Paper", address: "Bd. Victoriei 31, Sibiu", position: [45.7889, 24.1518] },
-  { name: "Textile Recycling Lidl Terezian", type: "Textiles", address: "Șos. Alba Iulia 75, Sibiu", position: [45.8040, 24.1425] },
+  { name: "Textile Recycling Lidl Terezian", type: "Textiles", address: "Șos. Alba Iulia 75, Sibiu", position: [45.8040, 24.1425] }, // Lidl SGR is at 47A; this is a unique address
   { name: "Aluminium Can Bank OMV", type: "Aluminum", address: "Șos. Alba Iulia 32, Sibiu", position: [45.7975, 24.1441] },
   { name: "Plastic & Paper Bin School No. 21", type: "Plastic", address: "Șos. Alba Iulia 38, Sibiu", position: [45.7983, 24.1428] },
-  { name: "Recycling Center Valea Aurie", type: "Electronics", address: "Str. Valea Aurie 52, Sibiu", position: [45.7821, 24.1235] },
   { name: "Central Market Glass Bin", type: "Glass", address: "Piața Mare, Sibiu", position: [45.7972, 24.1519] },
-  { name: "Valea Săpunului Clothing Bin", type: "Donations", address: "Str. Valea Săpunului 10, Sibiu", position: [45.7824, 24.1122] },
-  { name: "Paper GTC Complex", type: "Paper", address: "Str. Rusciorului 7, Sibiu", position: [45.8015, 24.1538] },
   { name: "Plastic Gară Bin", type: "Plastic", address: "Piața 1 Decembrie 1918, Sibiu", position: [45.7924, 24.1513] },
   { name: "Aluminum Recycling Lidl Turnișor", type: "Aluminum", address: "Calea Turnișorului 120, Sibiu", position: [45.7967, 24.1164] },
   { name: "Textile Bin Hipodrom", type: "Textiles", address: "Str. Luptei 52, Sibiu", position: [45.7790, 24.1461] },
-  { name: "Battery Bin Str. Lungă", type: "Batteries", address: "Str. Lungă 18, Sibiu", position: [45.7862, 24.1445] },
   { name: "Electronics Flanco", type: "Electronics", address: "Str. Constituției 21, Sibiu", position: [45.8019, 24.1592] },
-  { name: "Plastic Bin Sub Arini Park", type: "Plastic", address: "Bulevardul Victoriei 24, Sibiu", position: [45.7880, 24.1398] },
-  { name: "Donations Piața Cibin", type: "Donations", address: "Piața Cibin, Sibiu", position: [45.7995, 24.1432] },
   { name: "Glass Bin Ana Hotel", type: "Glass", address: "Str. Scoala de Înot 3, Sibiu", position: [45.7929, 24.1471] },
   { name: "Textiles Bin Profi Terezian", type: "Textiles", address: "Str. Lemnelor 12, Sibiu", position: [45.8073, 24.1376] },
-  { name: "Paper Bin Hipodrom Bulevard", type: "Paper", address: "Bulevardul Vasile Milea 19, Sibiu", position: [45.7832, 24.1544] },
-  { name: "Aluminum Bin Gara Mică", type: "Aluminum", address: "Str. Nicolae Teclu 26, Sibiu", position: [45.7948, 24.1497] },
-  { name: "Batteries Atabla Supermarket", type: "Batteries", address: "Str. Școala de Înot 19, Sibiu", position: [45.7928, 24.1488] },
-  { name: "Donations St. Family Church", type: "Donations", address: "Str. Ludoș 1, Sibiu", position: [45.7846, 24.1560] },
-  { name: "Electronics Bin Turnișor", type: "Electronics", address: "Str. Fratelia 6, Sibiu", position: [45.7933, 24.1197] },
   { name: "Glass Bin Lidl Rahova", type: "Glass", address: "Str. Rahovei 32, Sibiu", position: [45.7812, 24.1552] },
-  { name: "Paper Brâncoveanu School", type: "Paper", address: "Str. Brâncoveanu 24, Sibiu", position: [45.8000, 24.1377] },
-  { name: "Plastic + Aluminum Bin Orlatului", type: "Plastic", address: "Str. Orlatului 14, Sibiu", position: [45.8088, 24.1326] },
-  { name: "Batteries Bin Dumbrăvii", type: "Batteries", address: "Calea Dumbrăvii 102, Sibiu", position: [45.7827, 24.1613] },
-  { name: "Textiles Bin Selimbar", type: "Textiles", address: "Str. Mihail Sebastian 13, Sibiu", position: [45.7713, 24.1710] },
-  { name: "Aluminum Bin Piata Rahova", type: "Aluminum", address: "Piața Rahova, Sibiu", position: [45.7810, 24.1580] }
+  { name: "Aluminum Bin Piata Rahova", type: "Aluminum", address: "Piața Rahova, Sibiu", position: [45.7810, 24.1580] },
+  { name: "Textile Bin - Shopping City Mall", type: "Textiles", address: "Șos. Sibiului 5, Selimbăr", position: [45.8007, 24.1319] }, // SGR same address, but textiles is a unique function.
+  { name: "Simcris Recycling", type: "Electronics", address: "Str. Presaca 4, Sibiu", position: [45.8141, 24.1344] },
+  { name: "Piața Unirii Clothing Bin", type: "Donations", address: "Piața Unirii, Sibiu", position: [45.7925, 24.1501] },
+  { name: "Promenada Mall Clothing Bin", type: "Donations", address: "Strada Lector 1-3, Selimbăr", position: [45.7856, 24.1599] },
+
+  // SGR (all overlapping glass/plastic/aluminum/plastic pins at these addresses are now removed)
+  { name: "SGR Lidl Alba Iulia", type: "SGR", address: "Șos. Alba Iulia 47A, Sibiu", position: [45.8040, 24.1425] },
+  { name: "SGR Auchan Selimbăr", type: "SGR", address: "Șoseaua Sibiului 5, Selimbăr", position: [45.8007, 24.1319] },
+  { name: "SGR Kaufland Cisnădiei", type: "SGR", address: "Calea Cisnădiei 92, Sibiu", position: [45.7598, 24.1832] },
+  { name: "SGR Kaufland Selimbăr", type: "SGR", address: "DN1, nr. 1A, Selimbăr", position: [45.7671, 24.1808] },
+  { name: "SGR Carrefour Shopping City", type: "SGR", address: "Șos. Sibiului 5, Selimbăr", position: [45.8004, 24.1317] },
+  { name: "SGR Mega Image Rahova", type: "SGR", address: "Str. Rahovei 34, Sibiu", position: [45.7838, 24.1465] },
+  { name: "SGR Mega Image Compozitorilor", type: "SGR", address: "Strada Compozitorilor 2A, Sibiu", position: [45.79722, 24.14831] },
+  { name: "SGR DM Shopping City", type: "SGR", address: "DN1 km 306, Selimbăr", position: [45.8007, 24.1319] }
 ];
+
 
 const markerTypes = [
   "Plastic", "Glass", "Electronics", "Batteries", "Donations",
-  "Paper", "Textiles", "Aluminum"
+  "Paper", "Textiles", "Aluminum", "SGR"
 ];
 
 const markerButtonColors = {
-  Plastic: "#3388ff",      // Blue
-  Glass: "#757575",        // Grey
-  Electronics: "#ffe600",  // Yellow
-  Batteries: "#a020f0",    // Violet
-  Donations: "#e53935",    // Red
-  Paper: "#ff9800",        // Orange
-  Textiles: "#28a745",     // Green
-  Aluminum: "#757575"      // Grey (dark)
+  Plastic: "#3388ff",   // blue
+  Glass: "#28a745",     // green
+  Electronics: "#ffe600",
+  Batteries: "#a020f0",
+  Donations: "#e53935", // red
+  Paper: "#ff9800",
+  Textiles: "#888888",  // grey
+  Aluminum: "#000",
+  SGR: "#a0522d"        // brown
 };
 
 export default function Map() {
@@ -106,7 +107,7 @@ export default function Map() {
                 onClick={() => toggleType(type)}
                 style={{
                   background: markerButtonColors[type],
-                  color: type === "Electronics" || type === "Paper" ? "#232210" : "#fff",
+                  color: "#fff",
                   border: filter.includes(type) ? "2.5px solid #388e5f" : "1.5px solid #455d5a",
                   borderRadius: "0.5rem",
                   fontWeight: 600,
@@ -132,7 +133,7 @@ export default function Map() {
                   <Popup>
                     <b>{loc.name}</b><br />
                     {loc.address}<br />
-                    <span className="font-semibold">{loc.type}</span>
+                    <span className="font-semibold">{loc.type === "SGR" ? "SGR (Garanție-Returnare)" : loc.type}</span>
                   </Popup>
                 </Marker>
               ))}
