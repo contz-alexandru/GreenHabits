@@ -1,65 +1,51 @@
-import { useState, useEffect } from 'react'
-import './App.css'
+// src/App.jsx
+import "./App.css";
 import { Routes, Route, Link, Navigate } from "react-router-dom";
 import Profile from "./pages/Profile";
 import Stats from "./pages/Stats";
 import Login from "./pages/Login";
 import Header from "./components/Header";
 import Home from "./pages/Home";
+import { useAuth } from "./hooks/useAuth";
+import { AuthProvider } from "./components/AuthProvider";
 
+function AppContent() {
+  const { user, loading } = useAuth(); 
+  const isLoggedIn = !!user;
 
-export default function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(() => {
-    return localStorage.getItem('isLoggedIn') === 'true';
-  });
-  
-  const [habits, setHabits] = useState([
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen text-darkgreen text-2xl">
+        Loading...
+      </div>
+    );
+  }
+
+  const habits = [
     { id: 1, name: "Drink water", done: false },
     { id: 2, name: "Recycle plastic", done: false },
     { id: 3, name: "Take a walk", done: false },
-  ]);
-
-  useEffect(() => {
-    localStorage.setItem('isLoggedIn', isLoggedIn);
-  }, [isLoggedIn]);
+  ];
 
   const toggleHabit = (id) => {
-    setHabits(
-      habits.map((habit) =>
-        habit.id === id ? { ...habit, done: !habit.done } : habit
-      )
-    );
+    console.log("Habit toggled:", id);
   };
 
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    localStorage.removeItem('isLoggedIn');
-  };
-
-  const toggleLoginState = () => {
-    setIsLoggedIn(!isLoggedIn);
-  };
-
-  
-
- return (
+  return (
     <div className="min-h-screen bg-fundal font-sans">
-      <Header
-        isLoggedIn={isLoggedIn}
-        toggleLoginState={toggleLoginState}
-        handleLogout={handleLogout}
-      />
-      
+      {/* 🔹 Header nu mai primește props */}
+      <Header />
+
       {isLoggedIn && (
         <nav className="flex justify-center gap-4 py-4 px-6">
-          <Link 
-            to="/profile" 
+          <Link
+            to="/profile"
             className="bg-bigbox text-darkgreen px-6 py-2 rounded-lg font-semibold hover:bg-smallbox transition shadow-md"
           >
             Profile
           </Link>
-          <Link 
-            to="/stats" 
+          <Link
+            to="/stats"
             className="bg-bigbox text-darkgreen px-6 py-2 rounded-lg font-semibold hover:bg-smallbox transition shadow-md"
           >
             Stats
@@ -69,10 +55,39 @@ export default function App() {
 
       <Routes>
         <Route path="/" element={<Home isLoggedIn={isLoggedIn} />} />
-        <Route path="/profile" element={isLoggedIn ? <Profile habits={habits} toggleHabit={toggleHabit} /> : <Navigate to="/login" />} />
-        <Route path="/stats" element={isLoggedIn ? <Stats habits={habits} /> : <Navigate to="/login" />} />
-        <Route path="/login" element={!isLoggedIn ? <Login setIsLoggedIn={setIsLoggedIn} /> : <Navigate to="/profile" />} />
+        <Route
+          path="/profile"
+          element={
+            isLoggedIn ? (
+              <Profile habits={habits} toggleHabit={toggleHabit} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/stats"
+          element={
+            isLoggedIn ? (
+              <Stats habits={habits} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/login"
+          element={!isLoggedIn ? <Login /> : <Navigate to="/profile" />}
+        />
       </Routes>
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
   );
 }
