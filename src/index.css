@@ -1,44 +1,19 @@
-@import "tailwindcss/preflight";
-@import "tailwindcss/utilities";
-
-/* ---- keep your theme variables ---- */
-@theme {
-  --color-forest: #255938;
-  --color-darkgreen: #255938;
-  --color-sage: #869773;
-  --color-lightgreen: #869773;
-  --color-coral: #dc9b7d;
-  --color-salmon: #dc9b7d;
-  --color-somon: #dc9b7d;
-  --color-cream: #e9dcc3;
-  --color-beige: #e9dcc3;
-  --color-bej: #e9dcc3;
-  --color-mint: #c5d9d0;
-  --color-lightsalmon: #e8b5a3;
-}
-
-/* Make the document and root fill the viewport so the app can truly be full-screen */
-html, body, #root {
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-/* Page defaults (preserve your typography and rendering preferences) */
+@import "tailwindcss";
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Links */
 a {
   font-weight: 500;
   color: #646cff;
@@ -48,31 +23,14 @@ a:hover {
   color: #535bf2;
 }
 
-/* Body: remove the flex centering that constrained layout and make the page background match the app */
 body {
   margin: 0;
+  display: flex;
+  place-items: center;
   min-width: 320px;
   min-height: 100vh;
-
-  /* remove centering that made the layout narrow */
-  display: block;
-
-  /* use Tailwind utilities via @apply to match your component backgrounds (Tailwind v4 supports @apply) */
-  @apply bg-green-50;
-
-  /* ensure text color is readable on the chosen background */
-  color: rgb(17 24 39); /* Tailwind's slate-900 */
-  width: 100%;
 }
 
-/* Ensure immediate top-level app containers are not constrained by accidental wrappers */
-#root > div,
-#root > .App {
-  width: 100%;
-  max-width: none;
-}
-
-/* Preserve your custom heading/button rules */
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
@@ -97,10 +55,10 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-/* Light theme overrides */
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
+    background-color: #ffffff;
   }
   a:hover {
     color: #747bff;
@@ -110,16 +68,11 @@ button:focus-visible {
   }
 }
 
-/* Dark theme overrides */
-@media (prefers-color-scheme: dark) {
-  :root {
-    color: rgba(255, 255, 255, 0.87);
-  }
-  body {
-    background-color: #242424;
-    color: rgba(255, 255, 255, 0.87);
-  }
-  button {
-    background-color: #1a1a1a;
-  }
+@theme {
+  --color-darkgreen: #255938;
+  --color-fundal: #F5EFE6 ; 
+  --color-earth: #b39283;
+  --color-beige: #e9dcc3;
+  --color-bigbox:#DDE6DE;
+  --color-smallbox: #C5D9D0;
 }

@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react'
 import './App.css'
-import { Routes, Route, Link, Navigate, useLocation } from "react-router-dom";
+import { Routes, Route, Link, Navigate } from "react-router-dom";
 import Profile from "./pages/Profile";
 import Stats from "./pages/Stats";
 import Login from "./pages/Login";
+import Header from "./components/Header";
+import Home from "./pages/Home";
+
 
 export default function App() {
-  const location = useLocation();
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
     return localStorage.getItem('isLoggedIn') === 'true';
   });
@@ -40,65 +42,37 @@ export default function App() {
 
   
 
-  return (
-    <div className="min-h-screen bg-[#f5e6d3] font-sans">
-      {/* Header */}
-      <header className="bg-[#2d5016] text-white p-6 shadow-md">
-        <div className="flex justify-between items-center">
-          <div>
-            <h1 className="text-3xl font-bold">GreenHabits 🌱</h1>
-            <p className="mt-1 text-[#b8cec1]">Track your eco-friendly habits daily!</p>
-          </div>
-          <div className="flex gap-2">
-            {/* Test Button */}
-            <button 
-              onClick={toggleLoginState}
-              className="bg-[#d4927e] text-[#2d5016] px-4 py-2 rounded hover:opacity-90 transition font-bold"
-            >
-              TEST: {isLoggedIn ? 'Logged In ✓' : 'Logged Out ✗'}
-            </button>
-            {/* Logout Button - Only show when logged in */}
-            {isLoggedIn && (
-              <button 
-                onClick={handleLogout}
-                className="bg-[#d4927e] text-[#2d5016] px-4 py-2 rounded hover:opacity-90 transition font-bold"
-              >
-                Logout
-              </button>
-            )}
-          </div>
-        </div>
-      </header>
+ return (
+    <div className="min-h-screen bg-fundal font-sans">
+      <Header
+        isLoggedIn={isLoggedIn}
+        toggleLoginState={toggleLoginState}
+        handleLogout={handleLogout}
+      />
+      
+      {isLoggedIn && (
+        <nav className="flex justify-center gap-4 py-4 px-6">
+          <Link 
+            to="/profile" 
+            className="bg-bigbox text-darkgreen px-6 py-2 rounded-lg font-semibold hover:bg-smallbox transition shadow-md"
+          >
+            Profile
+          </Link>
+          <Link 
+            to="/stats" 
+            className="bg-bigbox text-darkgreen px-6 py-2 rounded-lg font-semibold hover:bg-smallbox transition shadow-md"
+          >
+            Stats
+          </Link>
+        </nav>
+      )}
 
-      {/* Hero Section */}
-      <section className="text-center py-6 px-4">
-        <h2 className="text-2xl md:text-4xl font-semibold mb-4 text-[#2d5016]">
-          Build Sustainable Habits
-        </h2>
-        <p className="text-[#2d5016] mb-6 max-w-xl mx-auto">
-          Stay motivated and track your eco-friendly activities every day. Small actions lead to big impact!
-        </p>
-        {isLoggedIn ? (
-          <>
-            <Link to="/profile" className="bg-[#d4927e] text-[#2d5016] px-6 py-2 rounded hover:opacity-90 transition ml-4">Profile</Link>
-            <Link to="/stats" className="bg-[#d4927e] text-[#2d5016] px-6 py-2 rounded hover:opacity-90 transition ml-4">Stats</Link>
-          </>
-        ) : (
-          location.pathname !== '/login' && (
-            <Link to="/login" className="bg-[#d4927e] text-[#2d5016] px-6 py-2 rounded hover:opacity-90 transition ml-4">Login</Link>
-          )
-        )}
-      </section>
-
-      {/* Routes */}
-      <main className="p-6 max-w-3xl mx-auto">
-        <Routes>
-          <Route path="/" element={isLoggedIn ? <Navigate to="/profile" /> : <Navigate to="/login" />} />
-          <Route path="/profile" element={isLoggedIn ? <Profile habits={habits} toggleHabit={toggleHabit} /> : <Navigate to="/login" />} />
-          <Route path="/stats" element={isLoggedIn ? <Stats habits={habits} /> : <Navigate to="/login" />} />
-          <Route path="/login" element={!isLoggedIn ? <Login setIsLoggedIn={setIsLoggedIn} /> : <Navigate to="/profile" />} />
-        </Routes>
-      </main>
+      <Routes>
+        <Route path="/" element={<Home isLoggedIn={isLoggedIn} />} />
+        <Route path="/profile" element={isLoggedIn ? <Profile habits={habits} toggleHabit={toggleHabit} /> : <Navigate to="/login" />} />
+        <Route path="/stats" element={isLoggedIn ? <Stats habits={habits} /> : <Navigate to="/login" />} />
+        <Route path="/login" element={!isLoggedIn ? <Login setIsLoggedIn={setIsLoggedIn} /> : <Navigate to="/profile" />} />
+      </Routes>
     </div>
   );
 }

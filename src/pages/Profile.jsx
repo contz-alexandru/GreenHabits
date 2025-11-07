@@ -19,29 +19,29 @@ export default function Profile() {
 
   return (
     <main className="p-6 max-w-2xl mx-auto space-y-6">
-      <section className="bg-[#b8cec1] p-6 rounded shadow-md">
-        <h2 className="text-2xl font-semibold mb-4 text-[#2d5016]">Profile</h2>
-        <p className="text-[#2d5016]"><strong>Name:</strong> {user.name}</p>
-        <p className="text-[#2d5016]"><strong>Email:</strong> {user.email}</p>
-        <p className="text-[#2d5016]"><strong>Total Habits Completed:</strong> {user.totalHabits}</p>
-        <p className="text-[#2d5016]"><strong>Current Streak:</strong> {user.streak} days</p>
+      <section className="bg-bigbox p-6 rounded shadow-md">
+        <h2 className="text-2xl font-semibold mb-4 text-darkgreen">Profile</h2>
+        <p className="text-darkgreen"><strong>Name:</strong> {user.name}</p>
+        <p className="text-darkgreen"><strong>Email:</strong> {user.email}</p>
+        <p className="text-darkgreen"><strong>Total Habits Completed:</strong> {user.totalHabits}</p>
+        <p className="text-darkgreen"><strong>Current Streak:</strong> {user.streak} days</p>
       </section>
 
-      <section className="bg-[#b8cec1] p-6 rounded shadow-md">
-        <h3 className="text-xl font-semibold mb-4 text-[#2d5016]">Your Habits</h3>
-        <ul className="space-y-2">
+      <section className="bg-bigbox p-6 rounded shadow-md">
+        <h3 className="text-xl font-semibold mb-4 text-darkgreen">Your Habits</h3>
+        <ul className="space-y-4">
           {habits.map((habit) => (
             <li
               key={habit.id}
               className={`flex items-center justify-between p-3 border rounded shadow-sm transition ${
-                habit.done ? "bg-[#b8cec1] line-through text-[#2d5016]" : "bg-[#d4927e]"
+                habit.done ? "bg-smallbox text-darkgreen" : "bg-earth"
               }`}
             >
-              <span className="text-[#2d5016]">{habit.name}</span>
+              <span className="text-darkgreen">{habit.name}</span>
               <button
                 onClick={() => toggleHabit(habit.id)}
                 className={`px-3 py-1 rounded text-sm font-medium transition ${
-                  habit.done ? "bg-[#2d5016] text-white" : "bg-[#b8cec1] text-[#2d5016] hover:bg-[#2d5016] hover:text-white"
+                  habit.done ? "bg-beige text-darkgreen" : "bg-fundal text-darkgreen hover:bg-darkgreen hover:text-white"
                 }`}
               >
                 {habit.done ? "Done" : "Mark Done"}
