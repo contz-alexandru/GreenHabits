@@ -5,32 +5,47 @@ import { useAuth } from "../hooks/useAuth";
 
 export default function Profile() {
   const [user, setUser] = useState({
-  name: "Jane Doe",
-  username: "ecoJane",
-  email: "jane@example.com",
-  totalHabits: 42,
-  ecoPoints: 850, // 🔹 punctele eco adăugate aici
-  profilePicture: "", // inițial fără poză
-});
+    name: "Jane Doe",
+    username: "ecoJane",
+    email: "jane@example.com",
+    totalHabits: 42,
+    ecoPoints: 850,
+    profilePicture: "",
+    // uid: "dummy-id" // dacă vrei demo, setează și un uid
+  });
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  
   const firstName = user?.name?.split(" ")[0] || "Profile";
   const [newUsername, setNewUsername] = useState(user.username);
   const [newProfilePic, setNewProfilePic] = useState("");
 
+  // poți înlocui cu id real dacă folosești auth
+  const auth = useAuth();
+
   useEffect(() => {
     const fetchUserData = async () => {
-      if (!user) return;
+      // decide pe ce uid cauți: user.uid sau auth.user.uid
+      const uid = (user && user.uid) || (auth && auth.user && auth.user.uid);
+      if (!uid) {
+        // fallback pe user local inițial
+        setUserData(user);
+        setLoading(false);
+        return;
+      }
+      setLoading(true);
       try {
-        const docRef = doc(db, "users", user.uid);
+        const docRef = doc(db, "users", uid);
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
           setUserData(docSnap.data());
         } else {
+          setUserData(user); // fallback
           console.log("Nu există date pentru acest utilizator!");
         }
       } catch (error) {
+        setUserData(user);
         console.error("Eroare la citirea datelor din Firestore:", error);
       } finally {
         setLoading(false);
@@ -38,7 +53,8 @@ export default function Profile() {
     };
 
     fetchUserData();
-  }, [user]);
+    // eslint-disable-next-line
+  }, [user, auth && auth.user]);
 
   const toggleHabit = (id) => {
     if (!userData?.habits) return;
@@ -51,48 +67,54 @@ export default function Profile() {
   };
 
   if (loading) {
-    return <div className="text-center mt-10 text-darkgreen">Se încarcă profilul...</div>;
+    return (
+      <div className="text-center mt-10 text-darkgreen">
+        Se încarcă profilul...
+      </div>
+    );
   }
 
   if (!userData) {
-    return <div className="text-center mt-10 text-red-600">Nu s-au găsit datele utilizatorului.</div>;
+    return (
+      <div className="text-center mt-10 text-red-600">
+        Nu s-au găsit datele utilizatorului.
+      </div>
+    );
   }
 
   return (
     <main className="p-10 max-w-5xl mx-auto space-y-10">
-       {/* 🔹 Text principal */}
-<div className="text-center max-w-4xl mx-auto mt-16 mb-16">
-  <h1 className="text-3xl md:text-5xl font-bold text-darkgreen mb-6 leading-tight">
-    Congratulations! You currently have <span className="font-bold">{user?.ecoPoints || 0}</span> Eco Points 🌿
-  </h1>
-  
-  
-</div>
+      {/* 🔹 Text principal */}
+      <div className="text-center max-w-4xl mx-auto mt-16 mb-16">
+        <h1 className="text-3xl md:text-5xl font-bold text-darkgreen mb-6 leading-tight">
+          Congratulations! You currently have <span className="font-bold">{userData?.ecoPoints || 0}</span> Eco Points 🌿
+        </h1>
+      </div>
+
       {/* Card principal */}
       <section className="bg-[#DDE6D6] p-12 rounded-3xl shadow-xl border border-[#C9D7C3] h-[500px] flex">
         {/* Informații utilizator */}
         <div className="flex-1 flex flex-col justify-center space-y-4 text-lg">
           <h2 className="text-4xl font-semibold mb-4 text-[#2E4D32]">Profile</h2>
           <p className="text-[#2E4D32]">
-            <strong>Name:</strong> {user.name}
+            <strong>Name:</strong> {userData.name}
           </p>
           <p className="text-[#2E4D32]">
-            <strong>Username:</strong> {user.username}
+            <strong>Username:</strong> {userData.username}
           </p>
           <p className="text-[#2E4D32]">
-            <strong>Email:</strong> {user.email}
+            <strong>Email:</strong> {userData.email}
           </p>
           <p className="text-[#2E4D32]">
-            <strong>Total Habits Completed:</strong> {user.totalHabits}
+            <strong>Total Habits Completed:</strong> {userData.totalHabits}
           </p>
-        
         </div>
 
         {/* Poză de profil centrată vertical */}
         <div className="flex-1 flex items-center justify-center">
-          {user.profilePicture ? (
+          {userData.profilePicture ? (
             <img
-              src={user.profilePicture}
+              src={userData.profilePicture}
               alt="Profile"
               className="w-64 h-64 object-cover rounded-full shadow-lg opacity-90"
             />
