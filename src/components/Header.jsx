@@ -10,6 +10,8 @@ import tasksIcon from "../assets/tasks_icon.svg";
 import redeemIcon from "../assets/redeem_icon.svg";
 import userIcon from "../assets/user_icon.svg";
 import leaderboardIcon from "../assets/leaderboard_icon.svg";
+import mapIcon from "../assets/map_icon.svg";
+import rentIcon from "../assets/rent_icon.svg";
 
 import { useAuth } from "../hooks/useAuth";
 import { logoutUser } from "../pages/authService";
@@ -55,7 +57,9 @@ export default function Header() {
   {[
     { icon: homeIcon, label: "Home", path: "/" },
     { icon: statsIcon, label: "Stats", path: "/stats" },
+    { icon: mapIcon, label: "Map", path: "/map" },
     { icon: tasksIcon, label: "Tasks", path: "/tasks" },
+    { icon: rentIcon, label: "Borrow", path: "/rent" },
     { icon: redeemIcon, label: "Redeem", path: "/redeem" },
     { icon: leaderboardIcon, label: "Leaderboard", path: "/leaderboard" },
     { icon: userIcon, label: "Profile", path: "/profile" },
