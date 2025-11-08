@@ -3,7 +3,7 @@ import { db } from "../firebase/firebase_config";
 import { doc, getDoc } from "firebase/firestore";
 import { useAuth } from "../hooks/useAuth";
 import { logoutUser } from "../pages/authService";
-
+import userIcon from "../assets/user_icon.svg";
 import logoutIcon from "../assets/logout_icon.svg";
 
 export default function Profile() {
@@ -94,7 +94,7 @@ export default function Profile() {
       {/* 🔹 Text principal */}
       <div className="text-center max-w-4xl mx-auto mt-16 mb-16">
         <h1 className="text-3xl md:text-5xl font-bold text-darkgreen mb-6 leading-tight">
-          Congratulations! You currently have <span className="font-bold">{userData?.ecoPoints || 0}</span> Eco Points 🌿
+          Congratulations! You currently have <span className="font-bold">{userData?.ecoPoints || 1600}</span> Eco Points 🌿
         </h1>
       </div>
 
@@ -113,7 +113,7 @@ export default function Profile() {
             <strong>Email:</strong> {userData.email}
           </p>
           <p className="text-[#2E4D32]">
-            <strong>Total Habits Completed:</strong> {userData.totalHabits}
+            <strong>Total Habits Completed:</strong> {userData?.totalHabits || 42}
           </p>
           
         </div>
@@ -127,8 +127,12 @@ export default function Profile() {
               className="w-64 h-64 object-cover rounded-full shadow-lg opacity-90"
             />
           ) : (
-            <div className="w-64 h-64 rounded-full bg-[#9BB597] flex items-center justify-center text-[#2E4D32] font-semibold opacity-50">
-              No Image
+            <div className="w-64 h-64 rounded-full bg-[#9BB597] flex items-center justify-center overflow-hidden">
+              <img
+                src={userIcon}
+                alt="Profile"
+                className="w-40 h-40 opacity-50"
+              />
             </div>
           )}
           <button
