@@ -40,7 +40,9 @@ export default function Header() {
   ];
 
   return (
-    <header className="bg-[#255938] text-[#F5EFE6] py-3 px-2 sm:px-3 shadow-md">
+    <header className="bg-[url('/header_splash.jpg')] bg-cover bg-center bg-no-repeat text-[#F5EFE6] py-3 px-2 sm:px-3 shadow-md min-h-32">
+
+          
       <div className="flex items-center justify-between w-full max-w-[95%] mx-auto">
         {/* Logo */}
         <Link to="/" className="flex-shrink-0">
