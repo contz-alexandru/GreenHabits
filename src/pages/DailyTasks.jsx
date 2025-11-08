@@ -228,7 +228,7 @@ export default function DailyTasks() {
   };
 
   return (
-    <main className="min-h-screen px-8 py-6" style={{ backgroundColor: "var(--color-fundal)" }}>
+    <main className="min-h-screen px-8 py-6 relative z-10">
       <div className="mx-auto max-w-7xl">
         <ProofModal
           open={proofIdx !== null}

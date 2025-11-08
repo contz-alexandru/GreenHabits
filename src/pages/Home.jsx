@@ -43,7 +43,7 @@ export default function Home({ isLoggedIn, user }) {
   ];
 
   return (
-    <section className="min-h-screen bg-[#F5EFE6] px-10 py-10">
+    <section className="min-h-screen px-10 py-10">
 
         
       {/* 🔹 Text principal — vizibil doar când utilizatorul este autentificat */}

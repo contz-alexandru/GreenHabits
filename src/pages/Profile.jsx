@@ -90,7 +90,7 @@ export default function Profile() {
   }
 
   return (
-    <main className="p-10 max-w-5xl mx-auto space-y-10">
+    <main className="p-10 max-w-5xl mx-auto space-y-10 relative z-10">
       {/* 🔹 Text principal */}
       <div className="text-center max-w-4xl mx-auto mt-16 mb-16">
         <h1 className="text-3xl md:text-5xl font-bold text-darkgreen mb-6 leading-tight">

@@ -140,7 +140,7 @@ export default function Redeem() {
   };
 
   return (
-    <main className="p-6 min-h-screen" style={{ backgroundColor: "var(--color-fundal)" }}>
+    <main className="p-6 min-h-screen relative z-10">
       {/* Popup on Redeem or Gift */}
       {showPopup && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">

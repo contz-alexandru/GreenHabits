@@ -64,7 +64,7 @@ export default function Leaderboard() {
   };
 
   return (
-    <main className="bg-fundal min-h-screen p-4 md:p-8" style={{ backgroundColor: "var(--color-fundal)" }}>
+    <main className="min-h-screen p-4 md:p-8 relative z-10">
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-transparent backdrop-blur-sm z-50" style={{ background: "transparent" }}>
           <form

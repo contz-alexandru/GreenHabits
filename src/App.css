@@ -2,6 +2,44 @@ html, body, #root {
   height: 100%;
   width: 100%;
   margin: 0;
+  overflow-x: hidden;
+}
+
+/* Add transparency to card backgrounds */
+[class*="bg-[#DDE6D6]"], .bg-bigbox {
+  background-color: rgba(221, 230, 214, 0.9) !important;
+}
+
+[class*="bg-[#F5EFE6]"], .bg-beige {
+  background-color: rgba(245, 239, 230, 0.9) !important;
+}
+
+.bg-earth {
+  background-color: rgba(197, 226, 180, 0.9) !important;
+}
+
+.bg-smallbox {
+  background-color: rgba(201, 215, 195, 0.9) !important;
+}
+
+/* Additional backgrounds for Leaderboard and Redeem */
+.bg-emerald-100 {
+  background-color: rgba(209, 250, 229, 0.9) !important;
+}
+
+[class*="bg-transparent"] {
+  background-color: transparent !important;
+}
+
+/* Make sure modals have proper background */
+[class*="fixed inset-0"] {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Ensure content is properly layered */
+.relative {
+  position: relative;
+  z-index: 1;
 }
 
 .logo {

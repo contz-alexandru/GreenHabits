@@ -205,8 +205,7 @@ export default function Stats() {
     displayedMonth.getFullYear() === 2025 && displayedMonth.getMonth() === 10;
 
   return (
-    <main className="p-6 bg-fundal min-h-screen"
-      style={{ backgroundColor: "var(--color-fundal)" }}>
+    <main className="p-6 min-h-screen">
       <style>{`
         .earth-animated-btn {
           transition: all .19s cubic-bezier(.43,1.36,.58,.86);

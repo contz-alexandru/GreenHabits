@@ -92,7 +92,7 @@ export default function Map() {
   }
 
   return (
-    <main className="bg-fundal min-h-screen p-8" style={{ backgroundColor: "var(--color-fundal)" }}>
+    <main className="min-h-screen p-8 relative z-10">
       <div className="max-w-7xl mx-auto flex flex-col gap-6">
         <section className="w-full bg-bigbox rounded-2xl p-7 shadow-md border border-smallbox flex flex-col"
           style={{ backgroundColor: "var(--color-bigbox)", borderColor: "var(--color-smallbox)" }}>

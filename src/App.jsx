@@ -41,20 +41,23 @@ function AppContent() {
   };
 
   return (
-    <div className="min-h-screen bg-fundal font-sans mt-auto">
-      <Header />
-      <div className="bg-[url('/background_splash.jpg')] bg-cover bg-center bg-no-repeat">
-        <Routes>
-          <Route path="/" element={<Home isLoggedIn={isLoggedIn} />} />
-          <Route path="/profile" element={isLoggedIn ? <Profile habits={habits} toggleHabit={toggleHabit} /> : <Navigate to="/login" />} />
-          <Route path="/stats" element={isLoggedIn ? <Stats habits={habits} /> : <Navigate to="/login" />} />
-          <Route path="/leaderboard" element={isLoggedIn ? <Leaderboard /> : <Navigate to="/login" />} />
-          <Route path="/redeem" element={isLoggedIn ? <Redeem /> : <Navigate to="/login" />} />
-          <Route path="/tasks" element={isLoggedIn ? <DailyTasks /> : <Navigate to="/login" />} />
-          <Route path="/rent" element={isLoggedIn ? <Rent /> : <Navigate to="/login" />} />
-          <Route path="/map" element={isLoggedIn ? <Map /> : <Navigate to="/login" />} />
-          <Route path="/login" element={!isLoggedIn ? <Login /> : <Navigate to="/profile" />} />
-        </Routes>
+    <div className="min-h-screen font-sans relative">
+      <div className="fixed inset-0 bg-[url('/background_splash.jpg')] bg-cover bg-center bg-no-repeat"></div>
+      <div className="relative z-10">
+        <Header />
+        <div className="min-h-[calc(100vh-4rem)]">
+          <Routes>
+            <Route path="/" element={<Home isLoggedIn={isLoggedIn} />} />
+            <Route path="/profile" element={isLoggedIn ? <Profile habits={habits} toggleHabit={toggleHabit} /> : <Navigate to="/login" />} />
+            <Route path="/stats" element={isLoggedIn ? <Stats habits={habits} /> : <Navigate to="/login" />} />
+            <Route path="/leaderboard" element={isLoggedIn ? <Leaderboard /> : <Navigate to="/login" />} />
+            <Route path="/redeem" element={isLoggedIn ? <Redeem /> : <Navigate to="/login" />} />
+            <Route path="/tasks" element={isLoggedIn ? <DailyTasks /> : <Navigate to="/login" />} />
+            <Route path="/rent" element={isLoggedIn ? <Rent /> : <Navigate to="/login" />} />
+            <Route path="/map" element={isLoggedIn ? <Map /> : <Navigate to="/login" />} />
+            <Route path="/login" element={!isLoggedIn ? <Login /> : <Navigate to="/profile" />} />
+          </Routes>
+        </div>
       </div>
     </div>
   );
