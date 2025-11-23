@@ -16,4 +16,14 @@
 ## Tech Stack 🛠️
 - **Frontend:** React, Tailwind CSS  
 - **Backend / Database:** Firebase (Auth, Firestore)  
-- **Hosting:** Firebase Hosting  
+- **Hosting:** Firebase Hosting
+
+## License
+
+This project is licensed under the GNU General Public License. See the [LICENSE](LICENSE.MD) file for details.  
+
+---
+
+## Contact
+
+For questions, suggestions, or support, open an issue in this repository.
