@@ -1,4 +1,4 @@
-Copyright (c) 2025-2026 Contz Alexandru-Ioan. All Rights Reserved.
+Copyright (c) 2025 Contz Alexandru-Ioan. All Rights Reserved.
 
 Unauthorized use, copying, modification, distribution,
 or any other activity involving this software is strictly prohibited
