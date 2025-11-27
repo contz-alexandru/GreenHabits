@@ -1,12 +1,12 @@
 import { Link, useLocation } from "react-router-dom";
 import Login from "./Login";
 import { useEffect, useState } from "react";
-import { origRewards } from "./Redeem"; // ajustează calea dacă e nevoie
+import { origRewards } from "../content_pages/redeem/RewardsData";// ajustează calea dacă e nevoie
 
 export default function Home({ isLoggedIn, user }) {
   const location = useLocation();
 
-  // 🔹 Citate motivaționale
+  // 🔹 Citate motivaționales
   const quotes = [
     "We do not inherit the Earth from our ancestors, we borrow it from our children.",
     "Small acts, when multiplied by millions of people, can transform the world.",
