@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import Login from "./Login";
 import { useEffect, useState } from "react";
-import { origRewards } from "./Redeem"; // ajustează calea dacă e nevoie
+import { origRewards } from "../content_pages/Redeem/RewardsData";// ajustează calea dacă e nevoie
 
 export default function Home({ isLoggedIn, user }) {
   const location = useLocation();
