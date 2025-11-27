@@ -6,7 +6,7 @@ import { origRewards } from "../content_pages/redeem/RewardsData";// ajustează 
 export default function Home({ isLoggedIn, user }) {
   const location = useLocation();
 
-  // 🔹 Citate motivaționale
+  // 🔹 Citate motivaționales
   const quotes = [
     "We do not inherit the Earth from our ancestors, we borrow it from our children.",
     "Small acts, when multiplied by millions of people, can transform the world.",
