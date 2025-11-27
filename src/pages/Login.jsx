@@ -99,6 +99,7 @@ const Login = () => {
 
         <button
           type="submit"
+          //onClick={handleAuth}
           className="w-full p-3 text-darkgreen font-medium bg-lightgreen rounded-full hover:opacity-90 transition mb-4 border-2 border-darkgreen"
         >
           {isLoginMode ? "Login" : "Sign Up"}
