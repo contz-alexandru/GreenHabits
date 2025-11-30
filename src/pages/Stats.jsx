@@ -1,12 +1,10 @@
 import { useState, useMemo } from "react";
-import {
-  format, startOfMonth, endOfMonth, eachDayOfInterval, getDay,
-} from "date-fns";
-import CalendarStreak from "../content_pages/Stats/Calendar&Streak";
-import { ecoFactors,ecoActionsList,stableActionsForMonth,getMaxConsecutiveStreak } from "../content_pages/Stats/utils/ecoConfig";
-import SustainableActions from "../content_pages/Stats/SustainableActions";
-import MonthlyEcoImpact from "../content_pages/Stats/MonthlyEcoImpact";
-import EcoStreakChar from "../content_pages/Stats/EcoStreakChart";
+import {format, startOfMonth, endOfMonth, eachDayOfInterval, getDay} from "date-fns";
+import CalendarStreak from "../content_pages/stats/Calendar&Streak";
+import { ecoFactors,ecoActionsList,stableActionsForMonth,getMaxConsecutiveStreak } from "../content_pages/stats/utils/ecoConfig";
+import SustainableActions from "../content_pages/stats/SustainableActions";
+import MonthlyEcoImpact from "../content_pages/stats/MonthlyEcoImpact";
+import EcoStreakChar from "../content_pages/stats/EcoStreakChart";
 
 export default function Stats() {
   const now = new Date();
