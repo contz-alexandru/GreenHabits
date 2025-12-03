@@ -1,10 +1,10 @@
 
 import 'leaflet/dist/leaflet.css';
 import { useState } from "react";
-import { markerTypes } from "../content_pages/Map/mapData.jsx";
-import MapFilters from "../content_pages/Map/mapFilters";
-import RecyclingMap from "../content_pages/Map/recyclingMap";
-import MapFooter from "../content_pages/Map/mapFooter";
+import { markerTypes } from "../content_pages/map/mapData.jsx";
+import MapFilters from "../content_pages/map/mapFilters";
+import RecyclingMap from "../content_pages/map/recyclingMap";
+import MapFooter from "../content_pages/map/mapFooter";
 
 export default function Map() {
   const [filter, setFilter] = useState(markerTypes);
